@@ -1,23 +1,27 @@
 import { Model, DataTypes, Optional } from "sequelize"
 import { sequelize } from "../database"
 import { Post } from "./postModel"
-import { Comment } from "./commentModel"
+import { Tag } from "./tagModel"
 
-interface postComentAttributes {
+interface PostTagAttributes {
+  id: string
   postId: number
-  commentId: number
+  tagId: number
   controversial: boolean
 }
-interface PostCommentCreateAttributes
-  extends Optional<PostCommentAttributes, "controversial"> {}
-export class PostComment extends Model implements postComentAttributes {
+interface PostTagCreateAttributes
+  extends Optional<PostTagAttributes, "controversial"> {}
+class PostTag
+  extends Model<PostTagAttributes, PostTagCreateAttributes>
+  implements PostTagAttributes
+{
   declare id: string
   declare postId: number
-  declare commentId: number
+  declare tagId: number
   declare controversial: boolean
 }
 
-PostComment.init(
+PostTag.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -32,35 +36,28 @@ PostComment.init(
       },
       primaryKey: true
     },
-    commentId: {
+    tagId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Comment,
+        model: Tag,
         key: "id"
       }
     },
-    needModeration: {
+    controversial: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: true,
       validate: {
-        isIn: [[[true, false]]]
+        isIn: [[true, false]]
       }
     }
   },
   {
     sequelize,
-    modelName: "PostComment",
-    tableName: "post_comments",
+    modelName: "PostTag",
+    tableName: "post_tags",
     timestamps: false
   }
 )
 
-// Define associations
-export interface PostCommentAttributes {
-  id?: string
-  postId: number
-  commentId: number
-  controversial?: boolean
-  needModeration?: boolean
-}
+export { PostTag, PostTagAttributes }

@@ -19,7 +19,7 @@ import { Comment } from "./models/commentModel" // Comment model
 import morgan from "morgan"
 import { Tag } from "./models/tagModel"
 import tagRouter from "./routers/tagRouter"
-import { PostComment } from "./models/postComment"
+import { PostTag } from "./models/posttag"
 
 // Create an Express application
 const app = express()
@@ -80,8 +80,8 @@ Comment.belongsTo(User) // Each comment belongs to a user
 Post.hasMany(Comment)
 Comment.belongsTo(Post) // Each comment belongs to a post
 // Tags have many posts & Posts has many tags
-Post.belongsToMany(Comment, { through: PostComment, foreignKey: "postId" })
-Comment.belongsToMany(Post, { through: PostComment, foreignKey: "commentId" })
+Post.belongsToMany(Tag, { through: PostTag, foreignKey: "postId" })
+Tag.belongsToMany(Post, { through: PostTag, foreignKey: "tagid" })
 
 // Database synchronization function
 async function db() {

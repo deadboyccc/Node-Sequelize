@@ -20,7 +20,7 @@ export const createTag = catchAsync(
     const { title } = req.body
     const newTag = await Tag.create({ title })
     res.status(201).json({
-      status: "sucess",
+      status: "success",
       newTag
     })
   }
