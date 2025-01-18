@@ -17,6 +17,9 @@ import { User } from "./models/userModel" // User model
 import { Post } from "./models/postModel" // Post model
 import { Comment } from "./models/commentModel" // Comment model
 import morgan from "morgan"
+import { Tag } from "./models/tagModel"
+import tagRouter from "./routers/tagRouter"
+import { PostComment } from "./models/postComment"
 
 // Create an Express application
 const app = express()
@@ -48,6 +51,7 @@ app.use("/", viewRouter) // Home and other views routes
 app.use("/user", userRouter) // User-related routes
 app.use("/post", postRouter) // Post-related routes
 app.use("/comment", commentRouter) // Comment-related routes
+app.use("/tag", tagRouter)
 
 // Catch-all route for 404 errors
 app.use("*", (req, res) => {
@@ -75,7 +79,9 @@ Comment.belongsTo(User) // Each comment belongs to a user
 // A post can have many comments
 Post.hasMany(Comment)
 Comment.belongsTo(Post) // Each comment belongs to a post
-// thread has many posts
+// Tags have many posts & Posts has many tags
+Post.belongsToMany(Comment, { through: PostComment, foreignKey: "postId" })
+Comment.belongsToMany(Post, { through: PostComment, foreignKey: "commentId" })
 
 // Database synchronization function
 async function db() {

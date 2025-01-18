@@ -26,10 +26,10 @@ export async function syncConnectPostgres() {
   try {
     // Authenticate the connection by verifying if Sequelize can connect to the database
     await sequelize.authenticate()
-    sequelize.sync({ force: true }) // Uncomment to forcefully re-sync and drop tables (dangerous for production)
+    // sequelize.sync({ force: true }) // Uncomment to forcefully re-sync and drop tables (dangerous for production)
 
     // Synchronize the models with the database schema (alter: true ensures no data is lost)
-    // sequelize.sync({ alter: true })
+    sequelize.sync({ alter: true })
     // Alter the schema without dropping existing data (useful for development or incremental changes)
 
     // Optional: Log a message confirming successful synchronization
