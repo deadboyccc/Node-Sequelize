@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize"
 import bcrypt from "bcryptjs" // For password hashing
 import { sequelize } from "../database"
 import { Post } from "./postModel" // Imported for associations
+import { title } from "process"
 
 // Define the interface for User attributes
 interface UserAttributes {
@@ -89,6 +90,11 @@ User.init(
           user.password = await bcrypt.hash(user.password, 1) // Hash the password before saving | CHANGE FOR PROD
         }
         user.passwordConfirm = "post" // Remove the confirm password field after saving
+      },
+      afterSave: async (user: User) => {
+        // Create a welcome post after user creation with the tag title of "new Member *"
+        const post = await user.createPost({ text: "Welcome!" })
+        await post.addTag(await post.createTag({ title: "New Member 🌟" }))
       }
     }
   }
