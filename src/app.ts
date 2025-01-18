@@ -13,13 +13,15 @@ import commentRouter from "./routers/commentRouter" // Routes for comments
 import viewRouter from "./routers/viewRouter" // Routes for views
 import { syncConnectPostgres, sequelize } from "./database" // Database connection functions
 import userRouter from "./routers/userRouter" // Routes for user management
-import { User } from "./models/userModel" // User model
-import { Post } from "./models/postModel" // Post model
-import { Comment } from "./models/commentModel" // Comment model
 import morgan from "morgan"
-import { Tag } from "./models/tagModel"
 import tagRouter from "./routers/tagRouter"
-import { PostTag } from "./models/posttag"
+import { text } from "stream/consumers"
+import { title } from "process"
+import { Post } from "./models/postModel" // Post model
+import { User } from "./models/userModel" // User model
+import { Comment } from "./models/commentModel" // Comment model
+import { Tag } from "./models/tagModel" // Tag model
+import { PostTag } from "./models/posttag" // PostTag model
 
 // Create an Express application
 const app = express()
@@ -79,9 +81,10 @@ Comment.belongsTo(User) // Each comment belongs to a user
 // A post can have many comments
 Post.hasMany(Comment)
 Comment.belongsTo(Post) // Each comment belongs to a post
-// Tags have many posts & Posts has many tags
+
+// Tags have many posts & Posts have many tags
 Post.belongsToMany(Tag, { through: PostTag, foreignKey: "postId" })
-Tag.belongsToMany(Post, { through: PostTag, foreignKey: "tagid" })
+Tag.belongsToMany(Post, { through: PostTag, foreignKey: "tagId" })
 
 // Database synchronization function
 async function db() {
@@ -90,16 +93,21 @@ async function db() {
     await syncConnectPostgres()
 
     // Example code to create a user if none exist (commented out)
-    // if ((await User.count()) === 0) {
-    //   const mainUser = await User.create({
-    //     name: "ahmed", // User's name
-    //     email: "ahmed@example.com", // User's email
-    //     password: "123", // User's password
-    //     passwordConfirm: "123" // Confirm password
-    //   })
-
-    //   console.log("user created successfully") // Log success
-    // }
+    if ((await User.count()) === 0) {
+      // Dial between 1 and 0 for testing
+      const user = await User.create({
+        name: "ahmed", // User's name
+        email: "ahmed@example.com", // User's email
+        password: "123", // User's password
+        passwordConfirm: "123"
+      })
+      const post = await user.createPost({
+        text: "First Post" // Post's title
+      })
+      post.createTag({
+        title: "Computer stuff" // Tag's name
+      })
+    }
 
     console.log("ALL DONE!") // Log when everything is complete
   } catch (err: Error | unknown) {
