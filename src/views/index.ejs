@@ -12,7 +12,16 @@
   <ol>
     <% users.forEach(user=> { %>
       <li>
-        <%= user.name %> - <%= user.email %> - Balance: <%= user.balance %>
+        <%= user.name %> - <%= user.email %>
+            <% if (user.posts.length> 0) { %>
+              <ul>
+                <% user.posts.forEach(post=> { %>
+                  <li>
+                    <%= post.text %> - <%= post.votes %>
+                  </li>
+                  <% }) %>
+              </ul>
+              <% } %>
       </li>
       <% }) %>
   </ol>
