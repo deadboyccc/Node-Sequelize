@@ -1,0 +1,69 @@
+/* General styles for both HTML files */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.container {
+  width: 80%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific styles for index.html */
+.post-form,
+.comment-form {
+  margin-bottom: 20px;
+}
+
+.post,
+.comment {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.post:last-child,
+.comment:last-child {
+  border-bottom: none;
+}
+
+.vote-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.vote-buttons button {
+  margin-right: 5px;
+}
+
+/* Specific styles for 404.html */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+
+h1 {
+  font-size: 3em;
+  color: #333;
+}
+
+p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
