@@ -17,9 +17,14 @@ import userRouter from "./routers/userRouter" // Routes for user management
 import { User } from "./models/userModel" // User model
 import { Post } from "./models/postModel" // Post model
 import { Comment } from "./models/commentModel" // Comment model
+import morgan from "morgan"
 
 // Create an Express application
 const app = express()
+// Importing morgan for logging HTTP requests
+
+// Use morgan middleware to log HTTP requests in the 'dev' format
+app.use(morgan("dev"))
 
 // Middleware to parse JSON bodies
 app.use(express.json())
