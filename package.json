@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node ./src/app.ts",
     "nodemon": "nodemon ./src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "ts-node ./src/utils/generateTestData.ts"
   },
   "keywords": [],
   "author": "",

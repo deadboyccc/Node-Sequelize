@@ -86,7 +86,7 @@ User.init(
     hooks: {
       beforeSave: async (user: User) => {
         if (user.password && user.changed("password")) {
-          user.password = await bcrypt.hash(user.password, 10) // Hash the password before saving
+          user.password = await bcrypt.hash(user.password, 1) // Hash the password before saving | CHANGE FOR PROD
         }
         user.passwordConfirm = "post" // Remove the confirm password field after saving
       }

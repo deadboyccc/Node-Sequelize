@@ -5,7 +5,6 @@ import path from "path" // Path module to handle file paths
 
 // Define the path for the .env file and load environment variables
 const dotEnvPath = path.join(__dirname, "..", "config.env") // Resolve path to config.env
-console.log(dotEnvPath) // Log the path to the console
 dotenv.config({ path: dotEnvPath }) // Load environment variables from config.env
 
 // Importing routers for different parts of the app
@@ -76,6 +75,7 @@ Comment.belongsTo(User) // Each comment belongs to a user
 // A post can have many comments
 Post.hasMany(Comment)
 Comment.belongsTo(Post) // Each comment belongs to a post
+// thread has many posts
 
 // Database synchronization function
 async function db() {
