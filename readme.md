@@ -1,6 +1,17 @@
 # Message Board API
+## Project Overview
 
-This project is a not yet implemented API for a message board/feedback board where users can give feedback on different topics and comment on them. The API is built using Node.js, Express, and Sequelize ORM for PostgreSQL.
+This project is an API for a message board/feedback board where users can give feedback on different topics and comment on them. The API is built using the following technologies:
+
+- **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
+- **Express**: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+- **Sequelize ORM**: A promise-based Node.js ORM for PostgreSQL, MySQL, MariaDB, SQLite, and Microsoft SQL Server. In this project, it is used with PostgreSQL.
+- **PostgreSQL**: An advanced, enterprise-class, and open-source relational database system.
+- **MongoDB**: A source-available cross-platform document-oriented database program. It is used for session-based authentication.
+- **Express-Session**: A middleware for creating and managing sessions in Express applications.
+- **EJS**: A simple templating language that lets you generate HTML markup with plain JavaScript.
+
+The tech stack ensures a robust and scalable API with efficient data handling and session management.
 
 ## API Routes
 
@@ -24,6 +35,13 @@ This project is a not yet implemented API for a message board/feedback board whe
 
 ### View Routes
 - `GET /`: Render the main page with a list of users.
+### Tag Routes
+- `GET /tag`: Retrieve all tags.
+- `POST /tag`: Create a new tag.
+
+### Auth Routes
+- `POST /auth/login`: Log in a user.
+- `POST /auth/logout`: Log out a user.
 
 ## Models
 
@@ -38,6 +56,7 @@ This project is a not yet implemented API for a message board/feedback board whe
 - **Associations**:
   - `Post` belongs to `User`
   - `Post` has many `Comment`
+  - `Post` has many `Tag` through `PostTag`
 
 ### Comment Model
 - **Attributes**: `id`, `text`, `userId`, `postId`
@@ -45,58 +64,51 @@ This project is a not yet implemented API for a message board/feedback board whe
   - `Comment` belongs to `User`
   - `Comment` belongs to `Post`
 
+### Tag Model
+- **Attributes**: `id`, `name`
+- **Associations**:
+  - `Tag` has many `Post` through `PostTag`
+
 ## Relationships Between Models
 - A `User` can create multiple `Posts`.
 - A `User` can create multiple `Comments`.
 - A `Post` can have multiple `Comments`.
+- A `Post` can have multiple `Tags` through `PostTag`.
+- A `Tag` can be associated with multiple `Posts` through `PostTag`.
 - Each `Comment` is associated with a single `User` and a single `Post`.
+
 
 ## File Structure
 
-```
-nodets-udemy-max/
-├── config.env
-├── data/
-│   └── test.txt
-├── dist/
-├── node_modules/
-├── src/
-│   ├── app.ts
-│   ├── controllers/
-│   │   ├── commentControllers.ts
-│   │   ├── postControllers.ts
-│   │   └── userControllers.ts
-│   ├── database.ts
-│   ├── models/
-│   │   ├── commentModel.ts
-│   │   ├── postModel.ts
-│   │   └── userModel.ts
-│   ├── declare/
-│   │   └── css/
-│   │       └── generalStyles.css
-│   ├── routers/
-│   │   ├── commentRouter.ts
-│   │   ├── postRouter.ts
-│   │   ├── userRouter.ts
-│   │   └── viewRouter.ts
-│   ├── utils/
-│   │   ├── catchAsync.ts
-│   │   └── generateTestData.ts
-│   └── views/
-│       ├── 404.ejs
-│       └── index.ejs
+Node-Sequelize/
+├── config/
+│   └── config.json
+├── controllers/
+│   ├── authController.js
+│   ├── commentController.js
+│   ├── postController.js
+│   └── userController.js
+├── models/
+│   ├── comment.js
+│   ├── index.js
+│   ├── post.js
+│   ├── tag.js
+│   └── user.js
+├── routes/
+│   ├── authRoutes.js
+│   ├── commentRoutes.js
+│   ├── postRoutes.js
+│   ├── tagRoutes.js
+│   ├── userRoutes.js
+│   └── viewRoutes.js
+├── views/
+│   ├── 404.ejs
+│   └── index.ejs
 ├── .gitignore
-├── .prettierignore
-├── .prettierrc
-├── .vscode/
-│   ├── launch.json
-│   ├── settings.json
-│   └── tasks.json
-├── eslint.config.mjs
-├── nodets-udemy-max.code-workspace
+├── app.js
 ├── package.json
 ├── readme.md
-└── tsconfig.json
+└── server.js
 ```
 
 This structure organizes the project into directories for controllers, models, routers, utilities, declare assets, and views, making it easy to navigate and maintain.
