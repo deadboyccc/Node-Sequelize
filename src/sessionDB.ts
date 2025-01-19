@@ -4,9 +4,6 @@ import { MongoClient } from "mongodb"
 export const url = process.env.SESSION_MONGODB_CONNECTION_STRING as string
 const client = new MongoClient(url)
 
-// Database Name
-const dbName = "auth"
-
 async function main() {
   // Use connect method to connect to the server
   await client.connect()

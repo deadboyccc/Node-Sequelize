@@ -42,7 +42,7 @@ app.use(
     saveUninitialized: false,
     store,
     cookie: {
-      maxAge: 2 * 60 * 1000 // 2 minutes in milliseconds
+      maxAge: 1 * 60 * 1000 // 1 minutes in milliseconds(for testing!)
     }
   })
 )
