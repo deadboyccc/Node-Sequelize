@@ -20,11 +20,32 @@ import postRouter from "./routers/postRouter" // Routes for posts
 import tagRouter from "./routers/tagRouter"
 import userRouter from "./routers/userRouter" // Routes for user management
 import viewRouter from "./routers/viewRouter" // Routes for views
+import session from "express-session"
+import { authRouter } from "./routers/authRouter"
+const MongoDBStore = require("connect-mongodb-session")(session)
 
 // Create an Express application
 const app = express()
-// Importing morgan for logging HTTP requests
 
+// Create an Express application
+const store = new MongoDBStore({
+  uri: process.env.SESSION_MONGODB_CONNECTION_STRING as string,
+  databaseName: "auth",
+  collection: "sessions"
+})
+
+// Configure session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET as string,
+    resave: false,
+    saveUninitialized: false,
+    store,
+    cookie: {
+      maxAge: 2 * 60 * 1000 // 2 minutes in milliseconds
+    }
+  })
+)
 // Use morgan middleware to log HTTP requests in the 'dev' format
 app.use(morgan("dev"))
 
@@ -47,6 +68,7 @@ app.set("views", path.join(__dirname, "views"))
 app.use(express.static(path.join(__dirname, "declare")))
 
 // Define route handlers
+app.use("/auth", authRouter)
 app.use("/", viewRouter) // Home and other views routes
 app.use("/user", userRouter) // User-related routes
 app.use("/post", postRouter) // Post-related routes
