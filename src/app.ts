@@ -1,6 +1,6 @@
 // Importing necessary libraries and modules
-import express from "express" // Express.js framework
 import dotenv from "dotenv" // dotenv package to load environment variables
+import express from "express" // Express.js framework
 import path from "path" // Path module to handle file paths
 
 // Define the path for the .env file and load environment variables
@@ -8,20 +8,18 @@ const dotEnvPath = path.join(__dirname, "..", "config.env") // Resolve path to c
 dotenv.config({ path: dotEnvPath }) // Load environment variables from config.env
 
 // Importing routers for different parts of the app
-import postRouter from "./routers/postRouter" // Routes for posts
-import commentRouter from "./routers/commentRouter" // Routes for comments
-import viewRouter from "./routers/viewRouter" // Routes for views
-import { syncConnectPostgres, sequelize } from "./database" // Database connection functions
-import userRouter from "./routers/userRouter" // Routes for user management
 import morgan from "morgan"
-import tagRouter from "./routers/tagRouter"
-import { text } from "stream/consumers"
-import { title } from "process"
-import { Post } from "./models/postModel" // Post model
-import { User } from "./models/userModel" // User model
+import { syncConnectPostgres } from "./database" // Database connection functions
 import { Comment } from "./models/commentModel" // Comment model
-import { Tag } from "./models/tagModel" // Tag model
+import { Post } from "./models/postModel" // Post model
 import { PostTag } from "./models/posttag" // PostTag model
+import { Tag } from "./models/tagModel" // Tag model
+import { User } from "./models/userModel" // User model
+import commentRouter from "./routers/commentRouter" // Routes for comments
+import postRouter from "./routers/postRouter" // Routes for posts
+import tagRouter from "./routers/tagRouter"
+import userRouter from "./routers/userRouter" // Routes for user management
+import viewRouter from "./routers/viewRouter" // Routes for views
 
 // Create an Express application
 const app = express()

@@ -1,8 +1,7 @@
-import { DataTypes, Model, Optional } from "sequelize"
 import bcrypt from "bcryptjs" // For password hashing
+import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../database"
 import { Post } from "./postModel" // Imported for associations
-import { title } from "process"
 
 // Define the interface for User attributes
 interface UserAttributes {

@@ -1,9 +1,5 @@
-import { Model, DataTypes, Optional } from "sequelize"
+import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../database"
-import { Post } from "./postModel"
-import { Tag } from "./tagModel"
-import { User } from "./userModel"
-import { Comment } from "./commentModel"
 
 interface PostTagAttributes {
   id: string

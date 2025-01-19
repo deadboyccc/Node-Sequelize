@@ -1,4 +1,4 @@
-//testing script
+//test script
 import { Post } from "../models/postModel"
 import { User } from "../models/userModel"
 
