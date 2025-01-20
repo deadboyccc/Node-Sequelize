@@ -41,7 +41,11 @@ The tech stack ensures a robust and scalable API with efficient data handling an
 
 ### Auth Routes
 - `POST /auth/login`: Log in a user.
+- `POST /auth/signup`: Register a new user.
 - `POST /auth/logout`: Log out a user.
+- `GET /auth/protect`: Protect a route with authentication.
+- `POST /auth/forgot`: Request a password reset email.
+- `POST /auth/reset/:token`: Reset the password using a reset token.
 
 ## Models
 
