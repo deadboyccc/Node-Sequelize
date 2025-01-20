@@ -22,6 +22,7 @@ import userRouter from "./routers/userRouter" // Routes for user management
 import viewRouter from "./routers/viewRouter" // Routes for views
 import session from "express-session"
 import { authRouter } from "./routers/authRouter"
+import helmet from "helmet"
 const MongoDBStore = require("connect-mongodb-session")(session)
 
 // Create an Express application
@@ -34,6 +35,7 @@ const store = new MongoDBStore({
   collection: "sessions"
 })
 
+app.use(helmet())
 // Configure session middleware
 app.use(
   session({

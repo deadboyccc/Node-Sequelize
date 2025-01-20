@@ -1,4 +1,4 @@
-import { User } from "../models/userModel"
+import { User, UserAttributes } from "../models/userModel"
 import crypto from "crypto"
 import catchAsync from "../utils/catchAsync"
 import Mail from "../utils/mail"
@@ -54,10 +54,11 @@ export const protect = catchAsync(async (req, res, next) => {
       .json({ status: "fail", message: "You are not logged in" })
   } else {
     // TEMPORARY IMPLEMENTATION OF A SUCCESS
-    res.status(200).json({
-      status: "success",
-      message: "you are loggedin"
-    })
+    req.user = (await User.findOne({
+      where: { id: req.session.userId }
+    })) as UserAttributes
+
+    next()
   }
 })
 
