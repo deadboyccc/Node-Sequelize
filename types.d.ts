@@ -12,6 +12,6 @@ declare global {
 }
 declare module "express-session" {
   interface Session {
-    loggedIn: string
+    userId: string
   }
 }
