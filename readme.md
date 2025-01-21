@@ -41,7 +41,11 @@ The tech stack ensures a robust and scalable API with efficient data handling an
 
 ### Auth Routes
 - `POST /auth/login`: Log in a user.
+- `POST /auth/signup`: Register a new user.
 - `POST /auth/logout`: Log out a user.
+- `GET /auth/protect`: Protect a route with authentication.
+- `POST /auth/forgot`: Request a password reset email.
+- `POST /auth/reset/:token`: Reset the password using a reset token.
 
 ## Models
 
@@ -76,39 +80,3 @@ The tech stack ensures a robust and scalable API with efficient data handling an
 - A `Post` can have multiple `Tags` through `PostTag`.
 - A `Tag` can be associated with multiple `Posts` through `PostTag`.
 - Each `Comment` is associated with a single `User` and a single `Post`.
-
-
-## File Structure
-
-Node-Sequelize/
-├── config/
-│   └── config.json
-├── controllers/
-│   ├── authController.js
-│   ├── commentController.js
-│   ├── postController.js
-│   └── userController.js
-├── models/
-│   ├── comment.js
-│   ├── index.js
-│   ├── post.js
-│   ├── tag.js
-│   └── user.js
-├── routes/
-│   ├── authRoutes.js
-│   ├── commentRoutes.js
-│   ├── postRoutes.js
-│   ├── tagRoutes.js
-│   ├── userRoutes.js
-│   └── viewRoutes.js
-├── views/
-│   ├── 404.ejs
-│   └── index.ejs
-├── .gitignore
-├── app.js
-├── package.json
-├── readme.md
-└── server.js
-```
-
-This structure organizes the project into directories for controllers, models, routers, utilities, declare assets, and views, making it easy to navigate and maintain.
