@@ -1,8 +1,6 @@
 import { User, UserAttributes } from "../models/userModel"
-import crypto from "crypto"
 import catchAsync from "../utils/catchAsync"
 import Mail from "../utils/mail"
-import nodemailer from "nodemailer"
 import { Op } from "sequelize"
 export const login = catchAsync(async (req, res) => {
   // Implementing login using session server-side + cookie client-side
