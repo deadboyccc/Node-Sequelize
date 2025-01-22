@@ -9,6 +9,7 @@ This project is an API for a message board/feedback board where users can give f
 - **PostgreSQL**: An advanced, enterprise-class, and open-source relational database system.
 - **MongoDB**: A source-available cross-platform document-oriented database program. It is used for session-based authentication.
 - **Express-Session**: A middleware for creating and managing sessions in Express applications.
+- **SocketIo**: A high-level websocket implementation.
 - **EJS**: A simple templating language that lets you generate HTML markup with plain JavaScript.
 
 The tech stack ensures a robust and scalable API with efficient data handling and session management.
@@ -46,6 +47,10 @@ The tech stack ensures a robust and scalable API with efficient data handling an
 - `GET /auth/protect`: Protect a route with authentication.
 - `POST /auth/forgot`: Request a password reset email.
 - `POST /auth/reset/:token`: Reset the password using a reset token.
+
+### WebSocket protol 
+
+- unfinised implementation of a websocket channel 'post' to updat the messageboard in real time.
 
 ## Models
 
