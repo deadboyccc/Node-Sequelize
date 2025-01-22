@@ -2,6 +2,7 @@ import { User, UserAttributes } from "../models/userModel"
 import catchAsync from "../utils/catchAsync"
 import Mail from "../utils/mail"
 import { Op } from "sequelize"
+import { validationResult } from "express-validator"
 export const login = catchAsync(async (req, res) => {
   // Implementing login using session server-side + cookie client-side
   const { email, password } = req.body
@@ -19,6 +20,11 @@ export const login = catchAsync(async (req, res) => {
 })
 
 export const signUp = catchAsync(async (req, res) => {
+  // Validation
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(420).json({ status: "fail", errors: errors.array() })
+  }
   //signing up handler
   const { name, email, password, passwordConfirm } = req.body
   if (await User.findOne({ where: { email } })) {
