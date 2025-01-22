@@ -2,6 +2,7 @@
 import dotenv from "dotenv" // dotenv package to load environment variables
 import express from "express" // Express.js framework
 import path from "path" // Path module to handle file paths
+import socketIo from "socket.io"
 
 // Define the path for the .env file and load environment variables
 const dotEnvPath = path.join(__dirname, "..", "config.env") // Resolve path to config.env
@@ -91,10 +92,15 @@ app.use(errorController)
 
 // Function to connect to the database and synchronize models
 db()
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log("server running on port 3000") // Log that the server is running
 })
 
+// Socket.IO setup
+export const io = new socketIo.Server(server)
+io.on("connection", () => {
+  console.log("a user connected")
+})
 // Define associations between the models
 // A user can have many posts
 User.hasMany(Post)
