@@ -23,6 +23,7 @@ import viewRouter from "./routers/viewRouter" // Routes for views
 import session from "express-session"
 import { authRouter } from "./routers/authRouter"
 import helmet from "helmet"
+import { errorController } from "./controllers/errorController"
 const MongoDBStore = require("connect-mongodb-session")(session)
 
 // Create an Express application
@@ -84,6 +85,9 @@ app.use("*", (req, res) => {
     title: "Page not found (404)"
   })
 })
+
+// Minimal error controller
+app.use(errorController)
 
 // Function to connect to the database and synchronize models
 db()
